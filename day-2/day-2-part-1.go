@@ -11,7 +11,7 @@ import (
 
 func main() {
 	if len(os.Args) != 2 {
-		log.Fatalf("expected 1 arg, was %d", len(os.Args) - 1)
+		log.Fatalf("expected 1 arg, was %d", len(os.Args)-1)
 	}
 	file, err := os.Open(os.Args[1])
 	if err != nil {
