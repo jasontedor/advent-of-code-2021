@@ -29,7 +29,7 @@ func main() {
 	for scanner.Scan() {
 		fields := strings.Fields(scanner.Text())
 		if len(fields) != 2 {
-			log.Fatal("expected 2 fields, was %d, %s", len(fields), fields)
+			log.Fatalf("expected 2 fields, was %d, %s", len(fields), fields)
 		}
 		mag, err := strconv.Atoi(fields[1])
 		if err != nil {
@@ -43,7 +43,7 @@ func main() {
 		} else if fields[0] == "down" {
 			a += mag
 		} else {
-			log.Fatal("unexpected command, was %s", fields[0])
+			log.Fatalf("unexpected command, was %s", fields[0])
 		}
 	}
 
