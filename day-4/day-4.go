@@ -1,5 +1,13 @@
 package main
 
+import (
+	"bufio"
+	"log"
+	"os"
+	"strconv"
+	"strings"
+)
+
 type Square struct {
 	number int
 	marked bool
@@ -7,6 +15,59 @@ type Square struct {
 
 type Board struct {
 	squares [5][5]Square
+}
+
+func ParseBoardsAndDraws(path string) ([]*Board, []int) {
+	file, err := os.Open(path)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer func() {
+		err := file.Close()
+		if err != nil {
+			log.Fatal(err)
+		}
+	}()
+
+	var boards []*Board
+	var draws []int
+	scanner := bufio.NewScanner(file)
+	if !scanner.Scan() {
+		log.Fatal("expected draws")
+	}
+	rawDraws := strings.Split(scanner.Text(), ",")
+	draws = make([]int, len(rawDraws))
+	for i, rawDraw := range rawDraws {
+		draws[i], err = strconv.Atoi(rawDraw)
+		if err != nil {
+			log.Fatal(err)
+		}
+	}
+	for scanner.Scan() {
+		var board Board
+		for i := 0; i < 5; i++ {
+			if !scanner.Scan() {
+				log.Fatal("expected next board line")
+			}
+			rawNumbers := strings.Fields(scanner.Text())
+			if len(rawNumbers) != 5 {
+				log.Fatalf(
+					"expected board line %d: %s to contain 5 elements but was %d",
+					i,
+					rawNumbers,
+					len(rawNumbers))
+			}
+			for j, rawNumber := range rawNumbers {
+				n, err := strconv.Atoi(rawNumber)
+				if err != nil {
+					log.Fatal(err)
+				}
+				board.squares[i][j] = Square{n, false}
+			}
+		}
+		boards = append(boards, &board)
+	}
+	return boards, draws
 }
 
 func CheckBoard(board Board) bool {
