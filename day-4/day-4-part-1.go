@@ -11,7 +11,7 @@ func main() {
 		log.Fatalf("expected 1 arg, was %d", len(os.Args)-1)
 	}
 
-	boards, draws := ParseBoardsAndDraws(os.Args[1])
+	draws, boards := ParseDrawsAndBoards(os.Args[1])
 
 	for _, draw := range draws {
 		for _, board := range boards {

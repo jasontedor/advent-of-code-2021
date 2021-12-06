@@ -17,7 +17,7 @@ type Board struct {
 	squares [5][5]Square
 }
 
-func ParseBoardsAndDraws(path string) ([]*Board, []int) {
+func ParseDrawsAndBoards(path string) ([]int, []*Board) {
 	file, err := os.Open(path)
 	if err != nil {
 		log.Fatal(err)
@@ -29,8 +29,8 @@ func ParseBoardsAndDraws(path string) ([]*Board, []int) {
 		}
 	}()
 
-	var boards []*Board
 	var draws []int
+	var boards []*Board
 	scanner := bufio.NewScanner(file)
 	if !scanner.Scan() {
 		log.Fatal("expected draws")
@@ -67,7 +67,7 @@ func ParseBoardsAndDraws(path string) ([]*Board, []int) {
 		}
 		boards = append(boards, &board)
 	}
-	return boards, draws
+	return draws, boards
 }
 
 func MarkDrawOnBoard(board *Board, draw int) {
