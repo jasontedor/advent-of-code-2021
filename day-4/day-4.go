@@ -70,6 +70,16 @@ func ParseBoardsAndDraws(path string) ([]*Board, []int) {
 	return boards, draws
 }
 
+func MarkDrawOnBoard(board *Board, draw int) {
+	for i := 0; i < 5; i++ {
+		for j := 0; j < 5; j++ {
+			if board.squares[i][j].number == draw {
+				board.squares[i][j].marked = true
+			}
+		}
+	}
+}
+
 func CheckBoard(board Board) bool {
 	for row := 0; row < 5; row++ {
 		if CheckRow(board, row) {

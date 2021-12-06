@@ -15,13 +15,7 @@ func main() {
 
 	for _, draw := range draws {
 		for _, board := range boards {
-			for i := 0; i < 5; i++ {
-				for j := 0; j < 5; j++ {
-					if board.squares[i][j].number == draw {
-						board.squares[i][j].marked = true
-					}
-				}
-			}
+			MarkDrawOnBoard(board, draw)
 		}
 
 		if len(boards) > 1 {
