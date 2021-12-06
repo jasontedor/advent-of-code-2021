@@ -10,6 +10,7 @@ func main() {
 	if len(os.Args) != 2 {
 		log.Fatalf("expected 1 arg, was %d", len(os.Args)-1)
 	}
+
 	boards, draws := ParseBoardsAndDraws(os.Args[1])
 
 	for _, draw := range draws {
