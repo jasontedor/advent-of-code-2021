@@ -27,6 +27,9 @@ func main() {
 	if err != nil {
 		log.Fatal(err)
 	}
+	if days < 1 {
+		log.Fatalf("expected positive number of days to simulate but was %d", days)
+	}
 
 	// assume the values all fit in memory
 	var countOfFishWithTimer [9]int
@@ -49,7 +52,6 @@ func main() {
 		log.Fatalf("expected end of file but was %s", scanner.Text())
 	}
 
-	fmt.Println(countOfFishWithTimer)
 	for i := 0; i < days; i++ {
 		count := countOfFishWithTimer[0]
 		for timer := 1; timer <= 8; timer++ {
@@ -60,7 +62,6 @@ func main() {
 		countOfFishWithTimer[6] += count
 		// fish with timer zero create new fish with timer 8
 		countOfFishWithTimer[8] = count
-		fmt.Println(countOfFishWithTimer)
 	}
 
 	sum := 0
