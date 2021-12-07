@@ -24,14 +24,14 @@ func main() {
 			log.Fatal(err)
 		}
 	}()
-	var costFunction func(moves int) int
+	var cost func(moves int) int
 	switch os.Args[2] {
 	case "linear":
-		costFunction = func(moves int) int {
+		cost = func(moves int) int {
 			return moves
 		}
 	case "quadratic":
-		costFunction = func(moves int) int {
+		cost = func(moves int) int {
 			return moves * (moves + 1) / 2
 		}
 	default:
@@ -67,9 +67,9 @@ func main() {
 		totalCost := 0
 		for position, count := range countOfCrabWithPosition {
 			if position < alignment {
-				totalCost += count * costFunction(alignment-position)
+				totalCost += count * cost(alignment-position)
 			} else if position > alignment {
-				totalCost += count * costFunction(position-alignment)
+				totalCost += count * cost(position-alignment)
 			}
 		}
 		if totalCost < minTotalCost {
