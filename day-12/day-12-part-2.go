@@ -32,22 +32,25 @@ func main() {
 					counts[n]++
 				}
 			}
-			oneSmallCaveHasBeenVisitedTwice := false
+			aSmallCaveHasBeenVisitedTwice := false
 			for _, v := range counts {
 				if v > 1 {
-					oneSmallCaveHasBeenVisitedTwice = true
+					aSmallCaveHasBeenVisitedTwice = true
 				}
 			}
 			for _, n := range path {
 				// the small cave is already in the path
 				if n == c {
 					if c == "start" {
+						// we can not visit start twice
 						return false
 					}
 					if c == "end" {
+						// we can not visit end twice (should never happen)
 						return false
 					}
-					if oneSmallCaveHasBeenVisitedTwice {
+					if aSmallCaveHasBeenVisitedTwice {
+						// a small cave has already been visited twice
 						return false
 					} else {
 						// we can accept the small cave a second time
